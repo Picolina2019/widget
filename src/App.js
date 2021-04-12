@@ -12,6 +12,7 @@ function App() {
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
   
+  
   console.log(isSelected);
   console.log(selectedElementsList);
 

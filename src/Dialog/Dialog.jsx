@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Dialog.module.css';
 // const Dialog = React.memo(function Dialog({elements}) {
 const Dialog = ({
@@ -10,6 +10,9 @@ const Dialog = ({
   selectedCount,
   setIsSelected,
 }) => {
+  const [searchElement, setSearchElement] = useState('');
+  const [searchResult, setSearchResult] = useState(elements);
+  const [filterAmount, setFilterAmount] = useState(300);
   const disabled = selectedCount >= 3;
 
   const handleChange = (index) => {
@@ -18,6 +21,19 @@ const Dialog = ({
       [index]: !isSelected[index],
     });
   };
+  const handleChangeInput = (event) => {
+    setSearchElement(event.target.value);
+  };
+  const handleFilterChange = (e) => {
+    setFilterAmount(e.target.value);
+  };
+  useEffect(() => {
+    setSearchResult(
+      elements.filter((element) =>
+        element.toLowerCase().split(' ').join('').includes(searchElement)
+      )
+    );
+  }, [searchElement, elements]);
 
   return (
     <div className={styles.container}>
@@ -29,10 +45,9 @@ const Dialog = ({
             Search
             <input
               type='text'
-              id='search'
               placeholder='Search'
-              // value={searchTerm}
-              onChange={handleChange}
+              value={searchElement}
+              onChange={handleChangeInput}
             />
           </label>
         </span>
@@ -41,16 +56,15 @@ const Dialog = ({
             Filter
             <input
               type='text'
-              id='filter'
               placeholder='Filter'
-              // value={searchTerm}
-              onChange={handleChange}
+              value={filterAmount}
+              onChange={handleFilterChange}
             />
           </label>
         </span>
       </div>
       <div className={styles.scroll}>
-        {elements.map((el, index) => (
+        {searchResult.map((el, index) => (
           <div key={el}>
             <input
               type='checkbox'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Data from './data';
-import Dialog from './Dialog';
+import Dialog from './Dialog/Dialog';
 
 function App() {
   const initialState = JSON.parse(localStorage.getItem('elements')) || Data;
@@ -44,28 +44,36 @@ function App() {
     setDialog(false);
   };
   const selected = selectedElementsList.map((el, index) => (
-    <div key={el}>
-      {el}
-      <button onClick={() => deleteElement(index)}>delete</button>
+    <div className='buttons-container' key={el}>
+      <span className='buttons'>
+        {el} <span className='buttons-line'>|</span>
+        <button className='delete-button' onClick={() => deleteElement(index)}>
+          X
+        </button>
+      </span>
     </div>
   ));
   return (
-    <div className='App'>
-      <h3>Select Items:</h3>
-      <p>you currently selected {selectedCount} items</p>
-      {selected}
-      <button onClick={openDialog}>change my choice</button>
-      {dialog && (
-        <Dialog
-          elements={elements}
-          closeDialog={closeDialog}
-          onCancel={onCancel}
-          selected={selected}
-          isSelected={isSelected}
-          setIsSelected={setIsSelected}
-          selectedCount={selectedCount}
-        />
-      )}
+    <div className='App-wrapper'>
+      <div className='App'>
+        <h3>Select Items:</h3>
+        <p>You currently selected {selectedCount} items.</p>
+        <div>{selected}</div>
+        <button className='button-change' onClick={openDialog}>
+          change my choice
+        </button>
+        {dialog && (
+          <Dialog
+            elements={elements}
+            closeDialog={closeDialog}
+            onCancel={onCancel}
+            selected={selected}
+            isSelected={isSelected}
+            setIsSelected={setIsSelected}
+            selectedCount={selectedCount}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dialog.module.css';
-// const Dialog = React.memo(function Dialog({elements}) {
+
+
 const Dialog = ({
   elements,
   closeDialog,
@@ -12,7 +13,7 @@ const Dialog = ({
 }) => {
   const [searchElement, setSearchElement] = useState('');
   const [searchResult, setSearchResult] = useState(elements);
-  const [filterAmount, setFilterAmount] = useState(300);
+  const [filterAmount, setFilterAmount] = useState('');
   const disabled = selectedCount >= 3;
 
   const handleChange = (index) => {
@@ -30,7 +31,7 @@ const Dialog = ({
   useEffect(() => {
     setSearchResult(
       elements.filter((element) =>
-        element.toLowerCase().split(' ').join('').includes(searchElement)
+        element.toLowerCase().split(' ').join('').includes(searchElement.replace(/ /g,'').toLowerCase())
       )
     );
   }, [searchElement, elements]);

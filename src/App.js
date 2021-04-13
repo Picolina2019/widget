@@ -11,10 +11,10 @@ function App() {
   const [dialog, setDialog] = useState(false);
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
-  
-  
+
+  console.log(elements);
+
   console.log(isSelected);
-  console.log(selectedElementsList);
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
@@ -23,8 +23,12 @@ function App() {
     setSelectedElementsList(
       selectedElementsList.filter((el, index) => index !== i)
     );
+    setIsSelected({
+      ...isSelected,
+      [i]: false,
+    });
   };
-  console.log(elements);
+
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));
     localStorage.setItem('isSelected', JSON.stringify(isSelected));
@@ -41,7 +45,6 @@ function App() {
     setDialog(false);
   };
   const onCancel = () => {
-    setElements([...elements]);
     setDialog(false);
   };
   const selected = selectedElementsList.map((el, index) => (

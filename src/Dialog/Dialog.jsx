@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dialog.module.css';
-
+//how better store variables
+const amountOfElements = [
+  { label: 'no filter', value: 300 },
+  { label: '>10', value: 10 },
+  { label: '>50', value: 50 },
+  { label: '>100', value: 100 },
+];
 
 const Dialog = ({
   elements,
@@ -12,8 +18,9 @@ const Dialog = ({
   setIsSelected,
 }) => {
   const [searchElement, setSearchElement] = useState('');
-  const [searchResult, setSearchResult] = useState(elements);
-  const [filterAmount, setFilterAmount] = useState('');
+  const [filterAmount, setFilterAmount] = useState(elements.length);
+  const [result, setResult] = useState([]);
+
   const disabled = selectedCount >= 3;
 
   const handleChange = (el) => {
@@ -22,19 +29,26 @@ const Dialog = ({
       [el]: !isSelected[el],
     });
   };
-  const handleChangeInput = (event) => {
-    setSearchElement(event.target.value);
+  const handleChangeInput = (e) => {
+    setSearchElement(e.target.value);
   };
   const handleFilterChange = (e) => {
     setFilterAmount(e.target.value);
   };
+  
   useEffect(() => {
-    setSearchResult(
-      elements.filter((element) =>
-        element.toLowerCase().split(' ').join('').includes(searchElement.replace(/ /g,'').toLowerCase())
-      )
+    setResult(
+      elements
+        .slice(0, filterAmount)
+        .filter((element) =>
+          element
+            .toLowerCase()
+            .split(' ')
+            .join('')
+            .includes(searchElement.replace(/ /g, '').toLowerCase())
+        )
     );
-  }, [searchElement, elements]);
+  }, [searchElement, elements, filterAmount]);
 
   return (
     <div className={styles.container}>
@@ -55,17 +69,18 @@ const Dialog = ({
         <span>
           <label>
             Filter
-            <input
-              type='text'
-              placeholder='Filter'
-              value={filterAmount}
-              onChange={handleFilterChange}
-            />
+            <select onChange={handleFilterChange}>
+              {amountOfElements.map((el) => (
+                <option key={el.value} value={el.value}>
+                  {el.label}
+                </option>
+              ))}
+            </select>
           </label>
         </span>
       </div>
       <div className={styles.scroll}>
-        {searchResult.map((el, index) => (
+        {result.map((el) => (
           <div key={el}>
             <input
               type='checkbox'

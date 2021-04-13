@@ -3,23 +3,26 @@ import './App.css';
 import Data from './data';
 import Dialog from './Dialog/Dialog';
 
+//how to optimize// is context needed?
+//localstorage is used in proper way?
+//what reuseble components to create
+//
 function App() {
   const initialState = JSON.parse(localStorage.getItem('elements')) || Data;
   const initialStateSelected =
     JSON.parse(localStorage.getItem('isSelected')) || {};
-  const [elements, setElements] = useState(initialState);
+  const [elements, setElements] = useState(initialState); ///what to do with setElements
   const [dialog, setDialog] = useState(false);
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
-
-  console.log(isSelected);
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
 
   const deleteElement = (el) => {
     setSelectedElementsList(
-      selectedElementsList.filter((element => element !== el)))
+      selectedElementsList.filter((element) => element !== el)
+    );
     setIsSelected({
       ...isSelected,
       [el]: false,
@@ -29,12 +32,13 @@ function App() {
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));
     localStorage.setItem('isSelected', JSON.stringify(isSelected));
-    let selectedIndex = Object.keys(isSelected)
-      .filter((key) => isSelected[key] === true)
-      // .map((i) => Number(i));
+    let selectedElements = Object.keys(isSelected).filter(
+      (key) => isSelected[key] === true
+    );
+    // .map((i) => Number(i));
     // setSelectedElementsList(selectedIndex.map((i) => elements[i]));
     setSelectedElementsList(
-      elements.filter((el) => selectedIndex.includes(el))
+      elements.filter((el) => selectedElements.includes(el))
     );
   }, [elements, isSelected]);
 
@@ -46,6 +50,7 @@ function App() {
   };
   const onCancel = () => {
     setDialog(false);
+    ///???
   };
   const selected = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>

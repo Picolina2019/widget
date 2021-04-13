@@ -16,10 +16,10 @@ const Dialog = ({
   const [filterAmount, setFilterAmount] = useState('');
   const disabled = selectedCount >= 3;
 
-  const handleChange = (index) => {
+  const handleChange = (el) => {
     setIsSelected({
       ...isSelected,
-      [index]: !isSelected[index],
+      [el]: !isSelected[el],
     });
   };
   const handleChangeInput = (event) => {
@@ -69,9 +69,9 @@ const Dialog = ({
           <div key={el}>
             <input
               type='checkbox'
-              onChange={() => handleChange(index)}
-              checked={isSelected[index] || false}
-              disabled={!isSelected[index] && disabled}
+              onChange={() => handleChange(el)}
+              checked={isSelected[el] || false}
+              disabled={!isSelected[el] && disabled}
             />
 
             {el}

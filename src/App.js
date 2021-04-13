@@ -12,20 +12,17 @@ function App() {
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
 
-  console.log(elements);
-
   console.log(isSelected);
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
 
-  const deleteElement = (i) => {
+  const deleteElement = (el) => {
     setSelectedElementsList(
-      selectedElementsList.filter((el, index) => index !== i)
-    );
+      selectedElementsList.filter((element => element !== el)))
     setIsSelected({
       ...isSelected,
-      [i]: false,
+      [el]: false,
     });
   };
 
@@ -34,8 +31,11 @@ function App() {
     localStorage.setItem('isSelected', JSON.stringify(isSelected));
     let selectedIndex = Object.keys(isSelected)
       .filter((key) => isSelected[key] === true)
-      .map((i) => Number(i));
-    setSelectedElementsList(selectedIndex.map((i) => elements[i]));
+      // .map((i) => Number(i));
+    // setSelectedElementsList(selectedIndex.map((i) => elements[i]));
+    setSelectedElementsList(
+      elements.filter((el) => selectedIndex.includes(el))
+    );
   }, [elements, isSelected]);
 
   const openDialog = () => {
@@ -47,11 +47,11 @@ function App() {
   const onCancel = () => {
     setDialog(false);
   };
-  const selected = selectedElementsList.map((el, index) => (
+  const selected = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>
       <span className='buttons'>
         {el} <span className='buttons-line'>|</span>
-        <button className='delete-button' onClick={() => deleteElement(index)}>
+        <button className='delete-button' onClick={() => deleteElement(el)}>
           X
         </button>
       </span>

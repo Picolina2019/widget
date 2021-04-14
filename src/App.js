@@ -4,19 +4,15 @@ import Button from './components/Button';
 import Dialog from './components/Dialog/Dialog';
 import Data from './data';
 
-
-
 function App() {
   const initialState = JSON.parse(localStorage.getItem('elements')) || Data;
   const initialStateSelected =
     JSON.parse(localStorage.getItem('isSelected')) || {};
-  const [elements, setElements] = useState(initialState); 
+  const [elements] = useState(initialState);
   const [dialog, setDialog] = useState(false);
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
-  const [newState] = useState({...isSelected});
-//   const [newElements] = useState([...initialState]);
-//  const [newList, setNewList] = useState([...selectedElementsList]);
+  const [newState, setNewState] = useState({ ...isSelected });
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
@@ -33,7 +29,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));
-
+    localStorage.setItem('isSelected', JSON.stringify(isSelected));
     let selectedElements = Object.keys(isSelected).filter(
       (key) => isSelected[key] === true
     );
@@ -41,23 +37,19 @@ function App() {
       elements.filter((el) => selectedElements.includes(el))
     );
   }, [elements, isSelected]);
+
   const openDialog = () => {
     setDialog(true);
   };
+
   const onSave = () => {
     setDialog(false);
-    setIsSelected(isSelected)
-        localStorage.setItem('isSelected', JSON.stringify(isSelected));
+    setNewState(isSelected);
   };
+
   const onCancel = () => {
-    
     setDialog(false);
     setIsSelected({ ...newState });
-    
-
-    // setElements([...newElements]);
-    // setSelectedElementsList([...newList])
-   
   };
   const selectedElements = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>
@@ -91,7 +83,6 @@ function App() {
             setIsSelected={setIsSelected}
             selectedCount={selectedCount}
             selectedElements={selectedElements}
-           
           />
         )}
       </div>

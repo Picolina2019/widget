@@ -13,13 +13,12 @@ const amountOfElements = [
 
 const Dialog = ({
   elements,
- onSave,
+  onSave,
   onCancel,
   isSelected,
   selectedCount,
   setIsSelected,
   selectedElements,
-  
 }) => {
   const [searchElement, setSearchElement] = useState('');
   const [filterAmount, setFilterAmount] = useState(elements.length);
@@ -32,7 +31,6 @@ const Dialog = ({
       ...isSelected,
       [el]: !isSelected[el],
     });
-  
   };
   const handleChangeInput = (e) => {
     setSearchElement(e.target.value);

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Button from './components/Button';
+import Dialog from './components/Dialog/Dialog';
 import Data from './data';
-import Dialog from './Dialog/Dialog';
 
 //how to optimize// is context needed?
-//localstorage is used in proper way?
-//what reuseble components to create
-//
+//localstorage
+
 function App() {
   const initialState = JSON.parse(localStorage.getItem('elements')) || Data;
   const initialStateSelected =
     JSON.parse(localStorage.getItem('isSelected')) || {};
-  const [elements, setElements] = useState(initialState); ///what to do with setElements
+  const [elements, setElements] = useState(initialState); ///setElements ?
   const [dialog, setDialog] = useState(false);
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
@@ -35,8 +35,6 @@ function App() {
     let selectedElements = Object.keys(isSelected).filter(
       (key) => isSelected[key] === true
     );
-    // .map((i) => Number(i));
-    // setSelectedElementsList(selectedIndex.map((i) => elements[i]));
     setSelectedElementsList(
       elements.filter((el) => selectedElements.includes(el))
     );
@@ -52,13 +50,15 @@ function App() {
     setDialog(false);
     ///???
   };
-  const selected = selectedElementsList.map((el) => (
+  const selectedElements = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>
       <span className='buttons'>
         {el} <span className='buttons-line'>|</span>
-        <button className='delete-button' onClick={() => deleteElement(el)}>
-          X
-        </button>
+        <Button
+          className='delete-button'
+          handleClick={() => deleteElement(el)}
+          label='X'
+        />
       </span>
     </div>
   ));
@@ -67,19 +67,21 @@ function App() {
       <div className='App'>
         <h3>Select Items:</h3>
         <p>You currently selected {selectedCount} items.</p>
-        <div>{selected}</div>
-        <button className='button-change' onClick={openDialog}>
-          change my choice
-        </button>
+        <div>{selectedElements}</div>
+        <Button
+          className='button-change'
+          handleClick={openDialog}
+          label='change my choice'
+        />
         {dialog && (
           <Dialog
             elements={elements}
             closeDialog={closeDialog}
             onCancel={onCancel}
-            selected={selected}
             isSelected={isSelected}
             setIsSelected={setIsSelected}
             selectedCount={selectedCount}
+            selectedElements={selectedElements}
           />
         )}
       </div>

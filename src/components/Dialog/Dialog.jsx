@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Button from '../Button';
+import Elements from '../Elements';
+import Filters from '../Filters';
 import styles from './Dialog.module.css';
 //how better store variables
 const amountOfElements = [
@@ -12,10 +15,10 @@ const Dialog = ({
   elements,
   closeDialog,
   onCancel,
-  selected,
   isSelected,
   selectedCount,
   setIsSelected,
+   selectedElements
 }) => {
   const [searchElement, setSearchElement] = useState('');
   const [filterAmount, setFilterAmount] = useState(elements.length);
@@ -35,7 +38,7 @@ const Dialog = ({
   const handleFilterChange = (e) => {
     setFilterAmount(e.target.value);
   };
-  
+
   useEffect(() => {
     setResult(
       elements
@@ -53,53 +56,28 @@ const Dialog = ({
   return (
     <div className={styles.container}>
       <p>Select Items:</p>
-
       <div className={styles.filters}>
-        <span>
-          <label>
-            Search
-            <input
-              type='text'
-              placeholder='Search'
-              value={searchElement}
-              onChange={handleChangeInput}
-            />
-          </label>
-        </span>
-        <span>
-          <label>
-            Filter
-            <select onChange={handleFilterChange}>
-              {amountOfElements.map((el) => (
-                <option key={el.value} value={el.value}>
-                  {el.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </span>
+        <Filters
+          amountOfElements={amountOfElements}
+          handleFilterChange={handleFilterChange}
+          handleChangeInput={handleChangeInput}
+          searchElement={searchElement}
+        />
       </div>
       <div className={styles.scroll}>
-        {result.map((el) => (
-          <div key={el}>
-            <input
-              type='checkbox'
-              onChange={() => handleChange(el)}
-              checked={isSelected[el] || false}
-              disabled={!isSelected[el] && disabled}
-            />
-
-            {el}
-          </div>
-        ))}
+        <Elements
+          result={result}
+          isSelected={isSelected}
+          disabled={disabled}
+          handleChange={handleChange}
+        />
       </div>
       <div className={styles.footer}>
         <p>Current Selected items: </p>
-        <div>{selected}</div>
-
+        <span>{selectedElements}</span>
         <div className={styles.buttons}>
-          <button onClick={closeDialog}>Save</button>
-          <button onClick={onCancel}>Cancel</button>
+          <Button handleClick={closeDialog} label='Save' />
+          <Button handleClick={onCancel} label='Cancel' />
         </div>
       </div>
     </div>

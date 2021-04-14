@@ -12,7 +12,8 @@ function App() {
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
   const [dialog, setDialog] = useState(false);
-  const [elementsStorage, setElementsStorage] = useState(isSelected);
+  const [elementsStorage, setElementsStorage] = useState({...isSelected});
+  console.log(elementsStorage)
 
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));
@@ -44,12 +45,12 @@ function App() {
 
   const onSave = () => {
     setDialog(false);
-    setElementsStorage(isSelected);
+    setElementsStorage({...isSelected});
   };
 
   const onCancel = () => {
     setDialog(false);
-    setIsSelected(elementsStorage);
+    setIsSelected({...elementsStorage});
   };
 
   const selectedElements = selectedElementsList.map((el) => (

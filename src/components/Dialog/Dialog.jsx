@@ -3,7 +3,7 @@ import Button from '../Button';
 import Elements from '../Elements';
 import Filters from '../Filters';
 import styles from './Dialog.module.css';
-//how better store variables
+
 const amountOfElements = [
   { label: 'no filter', value: 300 },
   { label: '>10', value: 10 },
@@ -13,12 +13,13 @@ const amountOfElements = [
 
 const Dialog = ({
   elements,
-  closeDialog,
+ onSave,
   onCancel,
   isSelected,
   selectedCount,
   setIsSelected,
-   selectedElements
+  selectedElements,
+  
 }) => {
   const [searchElement, setSearchElement] = useState('');
   const [filterAmount, setFilterAmount] = useState(elements.length);
@@ -31,6 +32,7 @@ const Dialog = ({
       ...isSelected,
       [el]: !isSelected[el],
     });
+  
   };
   const handleChangeInput = (e) => {
     setSearchElement(e.target.value);
@@ -76,7 +78,7 @@ const Dialog = ({
         <p>Current Selected items: </p>
         <span>{selectedElements}</span>
         <div className={styles.buttons}>
-          <Button handleClick={closeDialog} label='Save' />
+          <Button handleClick={onSave} label='Save' />
           <Button handleClick={onCancel} label='Cancel' />
         </div>
       </div>

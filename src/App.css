@@ -11,14 +11,14 @@ html {
   min-height: 100vh;
   margin: 0;
 }
-.App-wrapper {
+.app-wrapper {
   text-align: center;
   width: 600px;
   height: 800px;
   padding: 1rem;
   background-color: rgb(246, 243, 242);
 }
-.App {
+.app {
   width: 500px;
   height: 600px;
   margin: 0 auto;
@@ -56,11 +56,11 @@ html {
 }
 
 @media (max-width: 320px) {
-  .App-wrapper {
+  .app-wrapper {
     width: 280px;
       padding: 5px;
   }
-  .App {
+  .app {
     width: 260px;
   }
   .buttons-container {
@@ -82,11 +82,11 @@ html {
   }
 }
 @media (max-width: 600px) and (min-width: 321px) {
-  .App-wrapper {
+  .app-wrapper {
     width: 340px;
       padding: 5px;
   }
-  .App {
+  .app {
     width: 320px;
   }
   .buttons-container {

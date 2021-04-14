@@ -9,10 +9,21 @@ function App() {
   const initialStateSelected =
     JSON.parse(localStorage.getItem('isSelected')) || {};
   const [elements] = useState(initialState);
-  const [dialog, setDialog] = useState(false);
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
-  const [newState, setNewState] = useState({ ...isSelected });
+  const [dialog, setDialog] = useState(false);
+  const [elementsStorage, setElementsStorage] = useState(isSelected);
+
+  useEffect(() => {
+    localStorage.setItem('elements', JSON.stringify(elements));
+    localStorage.setItem('isSelected', JSON.stringify(isSelected));
+    let selectedElements = Object.keys(isSelected).filter(
+      (key) => isSelected[key] === true
+    );
+    setSelectedElementsList(
+      elements.filter((el) => selectedElements.includes(el))
+    );
+  }, [elements, isSelected]);
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
@@ -27,30 +38,20 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    localStorage.setItem('elements', JSON.stringify(elements));
-    localStorage.setItem('isSelected', JSON.stringify(isSelected));
-    let selectedElements = Object.keys(isSelected).filter(
-      (key) => isSelected[key] === true
-    );
-    setSelectedElementsList(
-      elements.filter((el) => selectedElements.includes(el))
-    );
-  }, [elements, isSelected]);
-
   const openDialog = () => {
     setDialog(true);
   };
 
   const onSave = () => {
     setDialog(false);
-    setNewState(isSelected);
+    setElementsStorage(isSelected);
   };
 
   const onCancel = () => {
     setDialog(false);
-    setIsSelected({ ...newState });
+    setIsSelected(elementsStorage);
   };
+
   const selectedElements = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>
       <span className='buttons'>
@@ -63,9 +64,10 @@ function App() {
       </span>
     </div>
   ));
+
   return (
-    <div className='App-wrapper'>
-      <div className='App'>
+    <div className='app-wrapper'>
+      <div className='app'>
         <h3>Select Items:</h3>
         <p>You currently selected {selectedCount} items.</p>
         <div>{selectedElements}</div>

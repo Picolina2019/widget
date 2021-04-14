@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Button(props) {
+function Button({handleClick,className,label}) {
   return (
-    <button onClick={props.handleClick} className={props.className} >
-      {props.label}
+    <button onClick={handleClick} className={className} >
+      {label}
     </button>
   )
 }

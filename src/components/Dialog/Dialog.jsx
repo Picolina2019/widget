@@ -24,21 +24,6 @@ const Dialog = ({
   const [filterAmount, setFilterAmount] = useState(elements.length);
   const [result, setResult] = useState([]);
 
-  const disabled = selectedCount >= 3;
-
-  const handleChange = (el) => {
-    setIsSelected({
-      ...isSelected,
-      [el]: !isSelected[el],
-    });
-  };
-  const handleChangeInput = (e) => {
-    setSearchElement(e.target.value);
-  };
-  const handleFilterChange = (e) => {
-    setFilterAmount(e.target.value);
-  };
-
   useEffect(() => {
     setResult(
       elements
@@ -53,6 +38,21 @@ const Dialog = ({
     );
   }, [searchElement, elements, filterAmount]);
 
+  const disabled = selectedCount >= 3;
+
+  const handleChange = (el) => {
+    setIsSelected({
+      ...isSelected,
+      [el]: !isSelected[el],
+    });
+  };
+  const handleInputChange = (e) => {
+    setSearchElement(e.target.value);
+  };
+  const handleFilterChange = (e) => {
+    setFilterAmount(e.target.value);
+  };
+
   return (
     <div className={styles.container}>
       <p>Select Items:</p>
@@ -60,7 +60,7 @@ const Dialog = ({
         <Filters
           amountOfElements={amountOfElements}
           handleFilterChange={handleFilterChange}
-          handleChangeInput={handleChangeInput}
+          handleChangeInput={handleInputChange}
           searchElement={searchElement}
         />
       </div>

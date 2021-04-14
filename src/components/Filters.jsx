@@ -1,11 +1,11 @@
 import React from 'react';
-
-function Filters({
-  searchElement,
-  handleChangeInput,
-  handleFilterChange,
-  amountOfElements,
-}) {
+const amountOfElements = [
+  { label: 'no filter', value: 300 },
+  { label: '>10', value: 10 },
+  { label: '>50', value: 50 },
+  { label: '>100', value: 100 },
+];
+function Filters({ searchElement, handleChangeInput, handleFilterChange }) {
   return (
     <div>
       <span>

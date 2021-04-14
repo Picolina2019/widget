@@ -4,25 +4,18 @@ import Elements from '../Elements';
 import Filters from '../Filters';
 import styles from './Dialog.module.css';
 
-const amountOfElements = [
-  { label: 'no filter', value: 300 },
-  { label: '>10', value: 10 },
-  { label: '>50', value: 50 },
-  { label: '>100', value: 100 },
-];
-
 const Dialog = ({
   elements,
   onSave,
   onCancel,
   isSelected,
-  selectedCount,
+  disabled,
   setIsSelected,
   selectedElements,
 }) => {
-  const [searchElement, setSearchElement] = useState('');
   const [filterAmount, setFilterAmount] = useState(elements.length);
   const [result, setResult] = useState([]);
+  const [searchElement, setSearchElement] = useState('');
 
   useEffect(() => {
     setResult(
@@ -37,8 +30,6 @@ const Dialog = ({
         )
     );
   }, [searchElement, elements, filterAmount]);
-
-  const disabled = selectedCount >= 3;
 
   const handleChange = (el) => {
     setIsSelected({
@@ -58,7 +49,6 @@ const Dialog = ({
       <p>Select Items:</p>
       <div className={styles.filters}>
         <Filters
-          amountOfElements={amountOfElements}
           handleFilterChange={handleFilterChange}
           handleChangeInput={handleInputChange}
           searchElement={searchElement}

@@ -12,8 +12,8 @@ function App() {
   const [isSelected, setIsSelected] = useState(initialStateSelected);
   const [selectedElementsList, setSelectedElementsList] = useState([]);
   const [dialog, setDialog] = useState(false);
-  const [elementsStorage, setElementsStorage] = useState({...isSelected});
-  console.log(elementsStorage)
+  const [elementsStorage, setElementsStorage] = useState({ ...isSelected });
+  console.log(elementsStorage);
 
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));
@@ -28,6 +28,7 @@ function App() {
 
   const selectedCount = Object.keys(isSelected).filter((key) => isSelected[key])
     .length;
+  const disabled = selectedCount >= 3;
 
   const deleteElement = (el) => {
     setSelectedElementsList(
@@ -45,12 +46,12 @@ function App() {
 
   const onSave = () => {
     setDialog(false);
-    setElementsStorage({...isSelected});
+    setElementsStorage({ ...isSelected });
   };
 
   const onCancel = () => {
     setDialog(false);
-    setIsSelected({...elementsStorage});
+    setIsSelected({ ...elementsStorage });
   };
 
   const selectedElements = selectedElementsList.map((el) => (
@@ -84,7 +85,7 @@ function App() {
             onCancel={onCancel}
             isSelected={isSelected}
             setIsSelected={setIsSelected}
-            selectedCount={selectedCount}
+            disabled={disabled}
             selectedElements={selectedElements}
           />
         )}

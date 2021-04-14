@@ -1,22 +1,27 @@
-body,
-html{
-  margin: 0;
-  text-align: center;
-  width: 100%; height: 100%; 
+* {
   box-sizing: border-box;
-  }
-  .App-wrapper{
+}
+body,
+html {
+  background-color: #e7e2e2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.App-wrapper {
   text-align: center;
-  width:600px;
-  height:800px;
+  width: 600px;
+  height: 800px;
+  padding: 1rem;
   background-color: rgb(246, 243, 242);
-  }
+}
 .App {
-  max-width: 500px;
+  width: 500px;
   height: 600px;
-
-  padding:1rem;
-  border-radius: 2rem;
+  margin: 0 auto;
 }
 .buttons-container {
   display: inline;
@@ -28,7 +33,18 @@ html{
   padding: 5px;
   margin: 5px;
 }
-.button-change {
+.delete {
+  border: none;
+  color: white;
+  background-color: black;
+  font-weight: 800;
+}
+.line {
+  margin-left: 10px;
+  font-weight: 800;
+  font-size: larger;
+}
+.change {
   margin: 20px 20px;
   background-color: rgb(125, 160, 125);
   padding: 10px;
@@ -38,14 +54,56 @@ html{
   outline: none;
   font-weight: 700;
 }
-.delete-button {
-  border: none;
-  color: white;
-  background-color: black;
-  font-weight: 800;
+
+@media (max-width: 320px) {
+  .App-wrapper {
+    width: 280px;
+      padding: 5px;
+  }
+  .App {
+    width: 260px;
+  }
+  .buttons-container {
+    margin: 0 auto;
+      display: block;
+  }
+  .buttons {
+    font-weight: 100;
+    padding: 1px;
+    margin: 1px;
+  }
+  .delete {
+    font-weight: 100;
+  }
+  .line {
+    margin-left: 2px;
+    font-weight: 100;
+    font-size: smaller;
+  }
 }
-.buttons-line {
-  margin-left: 10px;
-  font-weight: 800;
-  font-size: larger;
+@media (max-width: 600px) and (min-width: 321px) {
+  .App-wrapper {
+    width: 340px;
+      padding: 5px;
+  }
+  .App {
+    width: 320px;
+  }
+  .buttons-container {
+    margin: 0 auto;
+    
+  }
+  .buttons {
+    font-weight: 100;
+    padding: 2px;
+    margin: 2px;
+  }
+  .delete {
+    font-weight: 100;
+  }
+  .line {
+    margin-left: 2px;
+    font-weight: 100;
+    font-size: smaller;
+  }
 }

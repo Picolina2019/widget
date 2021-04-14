@@ -2,11 +2,9 @@
   display: grid;
   justify-content: center;
   align-items: center;
-
   background-color: rgb(182, 179, 179);
   width: 500px;
-  height: 100%;
-  margin: 0em;
+  height: 90%;
 }
 
 .scroll {
@@ -15,8 +13,7 @@
   justify-content: flex-start;
   background-color: black;
   color: white;
-  height: 100%;
-  padding:5px;
+  max-height: 100%;
   margin: 10px;
   overflow-y: auto;
   max-width: 500px;
@@ -24,16 +21,18 @@
 .filters {
   display: inline;
   margin: 10px;
-  padding: 7px;
-  color:white;
+  padding: 5px;
+  color: white;
   font-weight: 500;
 }
 
-input:focus, textarea:focus, select:focus{
-        outline: none;
-    }
-.filters span{
-  margin:16px;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+.filters span {
+  margin: 16px;
 }
 .buttons {
   display: inline;
@@ -66,4 +65,34 @@ input:focus, textarea:focus, select:focus{
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+@media (max-width: 320px) {
+  .container {
+    width: 260px;
+  }
+  .scroll {
+    width: 260px;
+  }
+  .filters {
+    margin: 5px;
+    font-weight: 100;
+  }
+  .filters span {
+    margin: 5px;
+  }
+}
+@media (max-width: 600px) and (min-width: 321px) {
+  .container {
+    width: 320px;
+  }
+  .scroll {
+    width: 320px;
+  }
+  .filters {
+    margin: 5px;
+    font-weight: 100;
+  }
+  .filters span {
+    margin: 5px;
+  }
 }

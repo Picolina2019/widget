@@ -53,9 +53,9 @@ function App() {
   const selectedElements = selectedElementsList.map((el) => (
     <div className='buttons-container' key={el}>
       <span className='buttons'>
-        {el} <span className='buttons-line'>|</span>
+        {el} <span className='line'>|</span>
         <Button
-          className='delete-button'
+          className='delete'
           handleClick={() => deleteElement(el)}
           label='X'
         />
@@ -69,7 +69,7 @@ function App() {
         <p>You currently selected {selectedCount} items.</p>
         <div>{selectedElements}</div>
         <Button
-          className='button-change'
+          className='change'
           handleClick={openDialog}
           label='change my choice'
         />

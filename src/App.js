@@ -13,7 +13,7 @@ function App() {
   const [selectedElementsList, setSelectedElementsList] = useState([]);
   const [dialog, setDialog] = useState(false);
   const [elementsStorage, setElementsStorage] = useState({ ...isSelected });
-  console.log(elementsStorage);
+ 
 
   useEffect(() => {
     localStorage.setItem('elements', JSON.stringify(elements));

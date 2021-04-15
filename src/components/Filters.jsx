@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const amountOfElements = [
@@ -35,6 +36,11 @@ const Filters = ({ searchElement, handleChangeInput, handleFilterChange }) => {
       </span>
     </div>
   );
+};
+Filters.propTypes = {
+  searchElement: PropTypes.string.isRequired,
+  handleChangeInput: PropTypes.func.isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filters;

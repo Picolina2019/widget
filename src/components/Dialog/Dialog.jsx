@@ -3,6 +3,7 @@ import Button from '../Button';
 import Elements from '../Elements';
 import Filters from '../Filters';
 import styles from './Dialog.module.css';
+import PropTypes from 'prop-types';
 
 const Dialog = ({
   elements,
@@ -72,6 +73,15 @@ const Dialog = ({
       </div>
     </div>
   );
+};
+Dialog.propTypes = {
+  elements: PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  isSelected: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  setIsSelected: PropTypes.func.isRequired,
+  selectedElements: PropTypes.array.isRequired,
 };
 
 export default Dialog;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function Elements({ result, isSelected, disabled, handleChange }) {
@@ -18,5 +19,11 @@ function Elements({ result, isSelected, disabled, handleChange }) {
     </>
   );
 }
+Elements.propTypes = {
+  isSelected: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  result: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Elements;
